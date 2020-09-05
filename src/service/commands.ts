@@ -1,3 +1,5 @@
+import _ from 'lodash-es';
+
 export function shutdown() {
   return makePacket(0x01);
 }
@@ -25,8 +27,6 @@ export function setMeasurementEnable(enabled: boolean) {
 }
 
 function makePacket(type: number, values = Buffer.of()) {
-  const header = Buffer.of(0xaa, type);
-  const payload = Buffer.concat([header, values]);
-  const checksum = payload.reduce((prev, curr) => prev + curr, 0);
-  return Buffer.of(...payload, checksum);
+  const payload = Buffer.of(0xaa, type, ...values);
+  return Buffer.of(...payload, _.sum(payload) & 255);
 }
