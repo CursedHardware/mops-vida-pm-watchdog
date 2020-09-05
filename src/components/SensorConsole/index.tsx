@@ -2,7 +2,7 @@ import prettyDuration from 'pretty-ms';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, ButtonGroup, Container, Progress, Row, Table } from 'reactstrap';
-import { connect, disconnect, requestDevice, shutdown } from '../../actions/sensor';
+import { connect, disconnect, requestDevice, shutdown, readHistory } from '../../actions/sensor';
 import locals from './index.scss';
 import { FormattedPM25 } from './FormattedPM25';
 import { MeasurementInterval } from './MeasurementInterval';
@@ -12,6 +12,7 @@ export const SensorConsole: React.FC = () => {
   const connected = useSelector((state) => state.report.connected);
   const shuttingdown = useSelector((state) => state.report.shuttingdown);
   const latest = useSelector((state) => state.report.latest);
+  const history = useSelector((state) => state.report.history);
   const onConnect = async () => {
     if (connected) {
       await dispatch(disconnect());
@@ -21,6 +22,7 @@ export const SensorConsole: React.FC = () => {
     }
   };
   const onShutdown = () => dispatch(shutdown());
+  const onReadHistory = () => dispatch(readHistory());
   return (
     <Container className={locals.container}>
       <Row>
@@ -28,12 +30,16 @@ export const SensorConsole: React.FC = () => {
           <Button color={connected ? 'success' : 'primary'} onClick={onConnect}>
             {connected ? 'Disconnect' : 'Connect'}
           </Button>
-          <Button color={connected ? 'danger' : undefined} onClick={onShutdown} disabled={!connected}>
+          <Button disabled={!connected} color={connected ? 'danger' : undefined} onClick={onShutdown}>
             {shuttingdown ? 'Shutting down' : 'Shutdown'}
+          </Button>
+          <Button disabled={!connected} color={connected ? 'info' : undefined} onClick={onReadHistory}>
+            Read history (one-time)
           </Button>
         </ButtonGroup>
       </Row>
       <Row>
+        <h1>Real-time</h1>
         <Table className={locals.table} responsive borderless>
           <thead>
             <tr>
@@ -77,9 +83,30 @@ export const SensorConsole: React.FC = () => {
               </td>
             </tr>
             <tr>
-              <td>Firmare version</td>
-              <td className='text-monospace'>{latest.version?.join('.') ?? 'N/A'}</td>
+              <td>Firmare Version</td>
+              <td className='text-monospace'>{latest.version ?? 'N/A'}</td>
             </tr>
+          </tbody>
+        </Table>
+      </Row>
+      <Row hidden={history.length === 0}>
+        <h1>History</h1>
+        <Table responsive borderless size='sm'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>
+                PM <sub>2.5</sub>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {history.map(({ recordDate, pm25 }, index) => (
+              <tr key={index}>
+                <td>{recordDate?.toLocaleString()}</td>
+                <td>{pm25}</td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </Row>
