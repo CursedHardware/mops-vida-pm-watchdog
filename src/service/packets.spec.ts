@@ -7,8 +7,8 @@ describe('Packets', () => {
   const cases: Record<string, PacketType> = {
     AA01AB: {},
     AA0A01B5: {},
-    AA0B004900005F509AFE45: { pm25: 73, recordDate: new Date('2012-11-08T00:35:17.000Z') },
-    AA0B01B800005F5073D767: { pm25: 440, recordDate: new Date('2012-10-09T07:51:03.000Z') },
+    AA0B004900005F509AFE45: { pm25: 73, recordDate: new Date('2020-09-03T07:27:58.000Z') },
+    AA0B01B800005F5073D767: { pm25: 440, recordDate: new Date('2020-09-03T04:40:55.000Z') },
     AA500464640000000000000000000000000000C6: { capacity: 100, isCharging: false },
     AA50050001F55600006310000000000000BE: { runtime: 128342, boottime: 25360 },
     AA5006001E00005F52358C025F52358D05: { pm25: 30, recordDate: new Date('2020-09-04T12:39:40.000Z'), currentDate: new Date('2020-09-04T12:39:41.000Z') },
