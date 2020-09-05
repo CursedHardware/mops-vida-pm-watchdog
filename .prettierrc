@@ -1,0 +1,7 @@
+{
+  "quoteProps": "consistent",
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 160
+}

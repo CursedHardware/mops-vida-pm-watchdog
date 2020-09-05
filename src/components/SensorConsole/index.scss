@@ -1,0 +1,22 @@
+.container {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.table {
+  table-layout: fixed;
+
+  .field {
+    width: 12rem;
+  }
+
+  tr td,
+  tr th {
+    vertical-align: middle;
+  }
+
+  thead tr th:first-child,
+  tbody tr td:first-child {
+    text-align: right;
+  }
+}
