@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, ButtonGroup, Container, Progress, Row, Table } from 'reactstrap';
 import { connect, disconnect, requestDevice, shutdown } from '../../actions/sensor';
 import locals from './index.scss';
-import { FormattedPM25 } from './pm25';
+import { FormattedPM25 } from './FormattedPM25';
+import { MeasurementInterval } from './MeasurementInterval';
 
 export const SensorConsole: React.FC = () => {
   const dispatch = useDispatch();
@@ -71,7 +72,9 @@ export const SensorConsole: React.FC = () => {
             </tr>
             <tr>
               <td>Measurement Interval</td>
-              <td className='text-monospace'>{latest.measurementInterval ? `${latest.measurementInterval} minutes` : 'Disabled'}</td>
+              <td className='text-monospace'>
+                <MeasurementInterval />
+              </td>
             </tr>
             <tr>
               <td>Firmare version</td>

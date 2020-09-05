@@ -1,14 +1,5 @@
 import React from 'react';
-import locals from './pm25.scss';
-
-enum PM25Level {
-  Excellent = 'excellent',
-  Good = 'good',
-  LightlyPolluted = 'lightly-polluted',
-  ModeratelyPolluted = 'moderately-polluted',
-  HeavilyPolluted = 'heavily-polluted',
-  SeverelyPolluted = 'severely-polluted',
-}
+import locals from './FormattedPM25.scss';
 
 export const FormattedPM25: React.FC<{ value?: number }> = ({ value }) => {
   if (value === undefined) {
@@ -25,18 +16,27 @@ export const FormattedPM25: React.FC<{ value?: number }> = ({ value }) => {
   );
 };
 
+enum Level {
+  Excellent = 'excellent',
+  Good = 'good',
+  LightlyPolluted = 'lightly-polluted',
+  ModeratelyPolluted = 'moderately-polluted',
+  HeavilyPolluted = 'heavily-polluted',
+  SeverelyPolluted = 'severely-polluted',
+}
+
 const getLevel = (value: number) => {
   if (value <= 35) {
-    return PM25Level.Excellent;
+    return Level.Excellent;
   } else if (value <= 75) {
-    return PM25Level.Good;
+    return Level.Good;
   } else if (value <= 115) {
-    return PM25Level.LightlyPolluted;
+    return Level.LightlyPolluted;
   } else if (value <= 150) {
-    return PM25Level.ModeratelyPolluted;
+    return Level.ModeratelyPolluted;
   } else if (value <= 250) {
-    return PM25Level.HeavilyPolluted;
+    return Level.HeavilyPolluted;
   } else {
-    return PM25Level.SeverelyPolluted;
+    return Level.SeverelyPolluted;
   }
 };
