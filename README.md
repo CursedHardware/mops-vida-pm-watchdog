@@ -24,4 +24,6 @@
 ## Resources
 
 - [docs/protocol-design.md](docs/protocol-design.md)
+- [docs/PINOUT.md](docs/PINOUT.md)
+- [docs/decompile.md](docs/decompile.md)
 - [docs/firmware/3_16.zip](docs/firmware/3_16.zip) (Latest DFU firmware)

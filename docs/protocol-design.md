@@ -15,7 +15,7 @@ Device broadcast name: `测霾单品`
 
 ### PINOUT
 
-- [SWD PINOUT](./PINOUT-SWD.jpg)
+- [PINOUT Definition](./PINOUT.md)
 
 ## Packet layout
 
