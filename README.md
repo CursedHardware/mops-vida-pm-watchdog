@@ -10,7 +10,7 @@
 
 ## Online Client
 
-<https://nicelabs.github.com/mops-vida-pm-watchdog>
+<https://nicelabs.github.io/mops-vida-pm-watchdog>
 
 ## Resources
 
