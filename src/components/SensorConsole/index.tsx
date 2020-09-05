@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, ButtonGroup, Container, Progress, Row, Table } from 'reactstrap';
 import { connect, disconnect, requestDevice, shutdown } from '../../actions/sensor';
 import locals from './index.scss';
+import { FormattedPM25 } from './pm25';
 
 export const SensorConsole: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,9 +43,11 @@ export const SensorConsole: React.FC = () => {
           <tbody>
             <tr>
               <td>
-                PM<sub>2.5</sub>
+                PM <sub>2.5</sub>
               </td>
-              <td className='text-monospace'>{latest.pm25 ?? 'N/A'}</td>
+              <td className='text-monospace'>
+                <FormattedPM25 value={latest.pm25} />
+              </td>
             </tr>
             <tr>
               <td>Battery</td>
