@@ -25,7 +25,7 @@ export class HistoryPacket {
   public constructor(data: Buffer) {
     assert(data, 0x0b);
     this.pm25 = data.readUInt16BE(0x2);
-    this.recordDate = new Date(data.readUInt32BE(0x7) * 1000);
+    this.recordDate = new Date(data.readUInt32BE(0x6) * 1000);
   }
 
   public toString() {

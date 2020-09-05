@@ -33,7 +33,7 @@ export const SensorConsole: React.FC = () => {
           <Button disabled={!connected} color={connected ? 'danger' : undefined} onClick={onShutdown}>
             {shuttingdown ? 'Shutting down' : 'Shutdown'}
           </Button>
-          <Button disabled={!connected} color={connected ? 'info' : undefined} onClick={onReadHistory}>
+          <Button disabled={!(connected && latest.measurementIntervalEnabled)} color={connected ? 'info' : undefined} onClick={onReadHistory}>
             Read history (one-time)
           </Button>
         </ButtonGroup>
