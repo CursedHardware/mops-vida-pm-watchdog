@@ -12,6 +12,10 @@
 
 <https://nicelabs.github.io/mops-vida-pm-watchdog>
 
+## Product links
+
+- <https://item.taobao.com/item.htm?id=624322974672>
+
 ## Resources
 
 - [docs/protocol-design.md](docs/protocol-design.md)
