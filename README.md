@@ -5,8 +5,13 @@
 > Note: The product Chinese name is "忻风随身 PM 2.5 检测仪"
 >
 > Product model: `AD520-P001`
->
-> Official Website: <https://www.lianluo.com>
+
+- Official Website:
+  <br><https://www.lianluo.com>
+
+- Official App download:
+  <br><http://mops.lianluo.com/vida/xinfeng/app/download>
+  <br><https://mops-oss.lianluo.com/xinfeng/software/20180211180753SFmSTILc83m0.apk>
 
 ## Online Client
 
