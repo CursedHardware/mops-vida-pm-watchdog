@@ -1,17 +1,27 @@
-# Pinout
+# PINOUT
 
-* SWD
-![SWD](PINOUT-SWD.jpg)
+## LEDs
 
-* LEDs
-  * Red leds in the circle: P0.10
-  * Green leds in the circle: P0.09
-  * Bluetooth status: P0.22
-  * Power status: P0.21
+|     PIN | Note                     |
+| ------: | ------------------------ |
+| `P0.10` | Red leds in the circle   |
+| `P0.09` | Green leds in the circle |
+| `P0.22` | Bluetooth status         |
+| `P0.21` | Power status             |
 
-* Particulate Matter sensor 
-  * PMS Tx: P0.05
-  * PMS Rx: P0.04
+## Particulate Matter Sensor
 
-* Buttons
-  * Side button: SWDIO(nRST)
+|     PIN | Note   |
+| ------: | ------ |
+| `P0.05` | PMS Tx |
+| `P0.04` | PMS Rx |
+
+## Buttons
+
+|         PIN | Note        |
+| ----------: | ----------- |
+| SWDIO(nRST) | Side button |
+
+## SWD
+
+<img src="PINOUT-SWD.jpg" width="300" />
