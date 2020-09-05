@@ -27,6 +27,7 @@ interface Report {
   batteryCharging?: boolean;
 
   measurementInterval?: number;
+  measurementIntervalEnabled?: boolean;
 
   runTime?: number;
   bootTime?: number;
@@ -62,11 +63,8 @@ export default reducerWithInitialState(defaultState)
         draft.latest.batteryCapacity = packet.capacity;
         draft.latest.batteryCharging = packet.isCharging;
       } else if (packet instanceof MeasurementSetupPacket) {
-        if (packet.enabled) {
-          draft.latest.measurementInterval = packet.interval;
-        } else {
-          draft.latest.measurementInterval = undefined;
-        }
+        draft.latest.measurementInterval = packet.interval;
+        draft.latest.measurementIntervalEnabled = packet.enabled;
       } else if (packet instanceof RuntimePacket) {
         draft.latest.runTime = packet.runtime;
         draft.latest.bootTime = packet.boottime;

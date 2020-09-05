@@ -39,4 +39,8 @@ const sendMessage = createAsync('SEND_MESSAGE', async (payload: Buffer, dispatch
   return sensor?.sendCommand(payload);
 });
 
+export const setMeasurementEnable = (enabled: boolean) => sendMessage(Commands.setMeasurementEnable(enabled));
+
+export const setMeasurementInterval = (value: number) => sendMessage(Commands.setMeasurementInterval(value));
+
 export const shutdown = () => sendMessage(Commands.shutdown());
