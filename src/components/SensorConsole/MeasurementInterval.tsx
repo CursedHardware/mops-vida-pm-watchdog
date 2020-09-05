@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader, ListGroup, ListGroupItem } from 'reactstrap';
 import { setMeasurementEnable, setMeasurementInterval } from '../../actions/sensor';
 
-const steps = [1, 5, 10, 15, 30, 60, 90, 120];
+const steps = [5, 10, 15, 30, 60, 90, 120];
 
 export const MeasurementInterval: React.FC = () => {
   const target = React.useRef<HTMLElement>(null);
