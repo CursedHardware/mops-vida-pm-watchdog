@@ -1,6 +1,7 @@
 import { produce } from 'immer';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { setConnected, updatePacket } from '../actions/sensor';
+import _ from 'lodash-es';
 import {
   BatteryPacket,
   HistoryPacket,
@@ -35,7 +36,7 @@ interface Report {
   pm25?: number;
   recordDate?: Date;
 
-  version?: [number, number];
+  version?: string;
 }
 
 const defaultState: ReportState = {
@@ -72,7 +73,7 @@ export default reducerWithInitialState(defaultState)
         draft.latest.pm25 = packet.pm25;
         draft.latest.recordDate = packet.recordDate;
       } else if (packet instanceof VersionPacket) {
-        draft.latest.version = [packet.major, packet.minor];
+        draft.latest.version = [packet.major, packet.minor].join('.');
       } else if (packet instanceof ShutdownPacket) {
         draft.shuttingdown = true;
       } else if (packet instanceof HistoryPacket) {
@@ -80,6 +81,7 @@ export default reducerWithInitialState(defaultState)
           pm25: packet.pm25,
           recordDate: packet.recordDate,
         });
+        draft.history = _.sortedUniqBy(draft.history, (record) => record.recordDate?.getTime());
       } else if (packet instanceof NoMoreHistoryPacket) {
         draft.historyFully = true;
       }

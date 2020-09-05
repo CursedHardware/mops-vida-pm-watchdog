@@ -23,8 +23,8 @@ export class HistoryPacket {
   public readonly recordDate: Date;
 
   public constructor(data: Buffer) {
-    assert(data, 0x0b, 0xb5);
-    this.pm25 = data.readUInt16BE(0x3);
+    assert(data, 0x0b);
+    this.pm25 = data.readUInt16BE(0x2);
     this.recordDate = new Date(data.readUInt32BE(0x7) * 1000);
   }
 
@@ -38,7 +38,7 @@ export class BatteryPacket {
   public readonly isCharging: boolean;
 
   public constructor(data: Buffer) {
-    assert(data, 0x50, 0xfe);
+    assert(data, 0x50);
     this.capacity = data.readUInt8(0x3);
     this.isCharging = data.readUInt8(0x6) === 1;
     Object.freeze(this);
@@ -94,7 +94,7 @@ export class MeasurementSetupPacket {
   public readonly enabled: boolean;
 
   public constructor(data: Buffer) {
-    assert(data, 0x50, 0x01);
+    assert(data, 0x50);
     this.interval = data.readUInt16BE(0x3);
     this.enabled = data.readUInt8(0x5) !== 0;
     Object.freeze(this);
@@ -126,24 +126,18 @@ export class VersionPacket {
   }
 }
 
-function assert(data: Buffer, type: number, baseline?: number) {
+function assert(data: Buffer, type: number) {
   if (data[0] !== 0xaa) {
     throw new Error('unexpected header');
   } else if (data[1] !== type) {
     throw new Error('unexpected type');
-  } else if (baseline !== undefined) {
-    const expected = data[data.length - 1];
-    const actual = data.slice(0x3, data.length - 1).reduce((prev, next) => prev + next, baseline) & 255;
-    if (expected !== actual) {
-      throw new Error('checksum failed');
-    }
   }
 }
 
 const mapping = {
   aa01: ShutdownPacket,
   aa0a: NoMoreHistoryPacket,
-  aa0b00: HistoryPacket,
+  aa0b: HistoryPacket,
   aa5004: BatteryPacket,
   aa5005: RuntimePacket,
   aa5006: SensorPacket,

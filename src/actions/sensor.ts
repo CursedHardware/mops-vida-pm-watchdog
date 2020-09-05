@@ -1,7 +1,7 @@
 import actionCreatorFactory from 'typescript-fsa';
 import { asyncFactory } from 'typescript-fsa-redux-thunk';
 
-import { SensorService, PacketType } from '../service';
+import { SensorService, PacketType, HistoryPacket } from '../service';
 import * as Commands from '../service/commands';
 
 const create = actionCreatorFactory('SENSOR');
@@ -22,7 +22,12 @@ export const connect = createAsync('CONNECT', async (params, dispatch, getState)
   await sensor.connect();
   dispatch(setConnected(true));
   sensor.on('disconnected', () => dispatch(setConnected(false)));
-  sensor.on('packet', (packet) => dispatch(updatePacket(packet)));
+  sensor.on('packet', async (packet) => {
+    if (packet instanceof HistoryPacket) {
+      await sensor.sendCommand(Commands.nextHistory());
+    }
+    return dispatch(updatePacket(packet));
+  });
   sensor.on('failed', (packet) => {
     console.log('Block', packet.toString('hex').toUpperCase());
   });
@@ -44,3 +49,5 @@ export const setMeasurementEnable = (enabled: boolean) => sendMessage(Commands.s
 export const setMeasurementInterval = (value: number) => sendMessage(Commands.setMeasurementInterval(value));
 
 export const shutdown = () => sendMessage(Commands.shutdown());
+
+export const readHistory = () => sendMessage(Commands.readHistory());
