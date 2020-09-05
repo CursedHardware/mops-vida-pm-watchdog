@@ -2,9 +2,10 @@ import prettyDuration from 'pretty-ms';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, ButtonGroup, Container, Progress, Row, Table } from 'reactstrap';
-import { connect, disconnect, requestDevice, shutdown, readHistory } from '../../actions/sensor';
-import locals from './index.scss';
+import { connect, disconnect, readHistory, requestDevice, shutdown } from '../../actions/sensor';
 import { FormattedPM25 } from './FormattedPM25';
+import { History } from './History';
+import locals from './index.scss';
 import { MeasurementInterval } from './MeasurementInterval';
 
 export const SensorConsole: React.FC = () => {
@@ -12,7 +13,6 @@ export const SensorConsole: React.FC = () => {
   const connected = useSelector((state) => state.report.connected);
   const shuttingdown = useSelector((state) => state.report.shuttingdown);
   const latest = useSelector((state) => state.report.latest);
-  const history = useSelector((state) => state.report.history);
   const onConnect = async () => {
     if (connected) {
       await dispatch(disconnect());
@@ -89,27 +89,7 @@ export const SensorConsole: React.FC = () => {
           </tbody>
         </Table>
       </Row>
-      <Row hidden={history.length === 0}>
-        <h1>History</h1>
-        <Table responsive borderless size='sm'>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>
-                PM <sub>2.5</sub>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {history.map(({ recordDate, pm25 }, index) => (
-              <tr key={index}>
-                <td>{recordDate?.toLocaleString()}</td>
-                <td>{pm25}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Row>
+      <History />
     </Container>
   );
 };
