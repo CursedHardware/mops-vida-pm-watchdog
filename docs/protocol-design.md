@@ -76,7 +76,7 @@ Device broadcast name: `测霾单品`
 | Offset | Field             | Block size | Note      |
 | -----: | ----------------- | ---------- | --------- |
 |   `02` | PM <sub>2.5</sub> | 2 byte     | 16 bit BE |
-|   `07` | timestamp         | 4 byte     | 32 bit BE |
+|   `06` | Timestamp         | 4 byte     | 32 bit BE |
 
 ### Update Packet
 
