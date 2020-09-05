@@ -6,7 +6,6 @@ import { setMeasurementEnable, setMeasurementInterval } from '../../actions/sens
 const steps = [5, 10, 15, 30, 60, 90, 120];
 
 export const MeasurementInterval: React.FC = () => {
-  const target = React.useRef<HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const connected = useSelector((state) => state.report.connected);
@@ -25,7 +24,7 @@ export const MeasurementInterval: React.FC = () => {
   return (
     <>
       <span onClick={onToggle}>{enabled ? `${interval} minutes` : 'Disabled'}</span>
-      <Modal placement='bottom' isOpen={open} target={target} toggle={onToggle}>
+      <Modal placement='bottom' isOpen={open} toggle={onToggle}>
         <ModalHeader>Measurement interval</ModalHeader>
         <ModalBody>
           <p>Current Interval: {interval} minutes</p>
