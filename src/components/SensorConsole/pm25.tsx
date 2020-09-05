@@ -20,7 +20,7 @@ export const FormattedPM25: React.FC<{ value?: number }> = ({ value }) => {
       <span>
         {value} &#x3BC;g/m<sup>3</sup>
       </span>
-      <span className={locals[level].replace(/-/g, ' ')}> ({level})</span>
+      <span className={locals[level]}> ({level.replace(/-/g, ' ')})</span>
     </span>
   );
 };
