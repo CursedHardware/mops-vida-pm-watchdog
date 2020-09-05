@@ -1,5 +1,4 @@
 import React from 'react';
-import locals from './FormattedPM25.scss';
 
 export const FormattedPM25: React.FC<{ value?: number }> = ({ value }) => {
   if (value === undefined) {
@@ -11,7 +10,7 @@ export const FormattedPM25: React.FC<{ value?: number }> = ({ value }) => {
       <span>
         {value} &#x3BC;g/m<sup>3</sup>
       </span>
-      <span className={locals[level]}> ({level.replace(/-/g, ' ')})</span>
+      <span> ({level.replace(/-/g, ' ')})</span>
     </span>
   );
 };
