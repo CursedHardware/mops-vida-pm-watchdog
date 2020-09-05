@@ -10,7 +10,11 @@
 
 ## Online Client
 
-<https://nicelabs.github.com/mops-vida-pm-watchdog>
+<https://nicelabs.github.io/mops-vida-pm-watchdog>
+
+## Product links
+
+- <https://item.taobao.com/item.htm?id=624322974672>
 
 ## Resources
 

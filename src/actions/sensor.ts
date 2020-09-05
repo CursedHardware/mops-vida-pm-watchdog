@@ -21,10 +21,11 @@ export const connect = createAsync('CONNECT', async (params, dispatch, getState)
   }
   await sensor.connect();
   dispatch(setConnected(true));
-  sensor.on('disconnected', () => {
-    dispatch(setConnected(false));
-  });
+  sensor.on('disconnected', () => dispatch(setConnected(false)));
   sensor.on('packet', (packet) => dispatch(updatePacket(packet)));
+  sensor.on('failed', (packet) => {
+    console.log('Block', packet.toString('hex').toUpperCase());
+  });
   await sensor.sendCommand(Commands.setTime());
 });
 
