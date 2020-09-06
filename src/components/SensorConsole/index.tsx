@@ -66,7 +66,9 @@ export const SensorConsole: React.FC = () => {
             </tr>
             <tr>
               <td>Record date</td>
-              <td className='text-monospace'>{latest.recordDate?.toLocaleString() ?? 'N/A'}</td>
+              <td className='text-monospace'>
+                <RecordDate value={latest.recordDate} />
+              </td>
             </tr>
             <tr>
               <td>Runtime</td>
@@ -91,5 +93,16 @@ export const SensorConsole: React.FC = () => {
       </Row>
       <History />
     </Container>
+  );
+};
+
+const RecordDate: React.FC<{ value?: Date }> = ({ value }) => {
+  if (value === undefined) {
+    return <span>N/A</span>;
+  }
+  return (
+    <span>
+      {value.toLocaleString()} (Delay: {prettyDuration(Date.now() - value.getTime())})
+    </span>
   );
 };
