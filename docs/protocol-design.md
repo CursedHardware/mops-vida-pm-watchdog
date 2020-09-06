@@ -60,7 +60,7 @@ Device broadcast name: `测霾单品`
 
 | Offset | Field   | Block size | Note   |
 | -----: | ------- | ---------- | ------ |
-|   `03` | unknown | 1 byte     | `0x01` |
+|   `02` | unknown | 1 byte     | `0x01` |
 
 ## History Packet
 

@@ -8,7 +8,7 @@ export function setMeasurementInterval(interval: number) {
   return makePacket(0x08, Buffer.of(0x00, interval));
 }
 
-export function setTime(now = new Date()) {
+export function setRTC(now = new Date()) {
   const values = Buffer.alloc(4);
   values.writeUInt32BE(Math.trunc(now.getTime() / 1000));
   return makePacket(0x09, values);

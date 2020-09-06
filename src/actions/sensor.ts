@@ -31,7 +31,7 @@ export const connect = createAsync('CONNECT', async (params, dispatch, getState)
   sensor.on('failed', (packet) => {
     console.log('Block', packet.toString('hex').toUpperCase());
   });
-  await sensor.sendCommand(Commands.setTime());
+  await sensor.sendCommand(Commands.setRTC());
 });
 
 export const disconnect = createAsync('DISCONNECT', async (params, dispatch, getState) => {
