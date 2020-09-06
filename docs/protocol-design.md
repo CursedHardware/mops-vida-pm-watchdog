@@ -1,8 +1,6 @@
 # MOPS·VIDA PM Watchdog Protocol Design
 
-## Initial connection information
-
-### Bluetootch LE
+## Initial connection information (Bluetootch LE)
 
 Device broadcast name: `测霾单品`
 
@@ -13,76 +11,69 @@ Device broadcast name: `测霾单品`
 | RX Characteristic        | `6E400002-B5A3-F393-E0A9-E50E24DCCA9E` |
 | TX Characteristic        | `6E400003-B5A3-F393-E0A9-E50E24DCCA9E` |
 
-### PINOUT
+## PINOUT
 
 - [PINOUT Definition](./PINOUT.md)
 
 ## Packet layout
 
-> Receive
+> Receive Message
 
-| Offset | Field        | Block size | Note                            |
-| -----: | ------------ | ---------- | ------------------------------- |
-|   `00` | Magic Header | 1 byte     | `AA`                            |
-|   `01` | Message Type | 1 byte     | [Message Type](#type-indicator) |
-|   `02` | Payload      |            |                                 |
+| Offset | Field        | Block size | Note                          |
+| -----: | ------------ | ---------- | ----------------------------- |
+|   `00` | Magic Header | 1 byte     | `AA`                          |
+|   `01` | Message Type | 1 byte     | [Message Type](#message-type) |
+|   `02` | Payload      |            |                               |
 
-> Send
+> Send Command
 
-|    Offset | Field    | Block size | Note            |
-| --------: | -------- | ---------- | --------------- |
-|      `02` | Payload  |            |                 |
-| Last byte | Checksum |            | (sum all) & 255 |
+|    Offset | Field        | Block size | Note                          |
+| --------: | ------------ | ---------- | ----------------------------- |
+|      `00` | Magic Header | 1 byte     | `AA`                          |
+|      `01` | Command Type | 1 byte     | [Command Type](#command-type) |
+|      `02` | Payload      |            |                               |
+| Last byte | Checksum     |            | `(sum all) & 255`             |
 
-### Type indicator
+## Message Type
 
-> Message Type
+| Value | Payload size | Note                                          |
+| ----- | ------------ | --------------------------------------------- |
+| `01`  | 0 byte       | Shutting down Packet                          |
+| `0A`  | 1 byte       | [NoMoreHistory Packet](#nomorehistory-packet) |
+| `0B`  | 9 byte       | [History Packet](#history-packet)             |
+| `50`  | -            | [Update Packet](#update-packet)               |
+| `54`  | 8 byte       | [Version Packet](#version-packet)             |
 
-| Value | Payload size | Note                                            |
-| ----- | ------------ | ----------------------------------------------- |
-| `01`  | 1 byte       | [Shutting down Packet](#shutting-down-packet)   |
-| `0a`  | 2 byte       | [NoMoreHistory Packet](#no-more-history-packet) |
-| `0b`  | 9 byte       | [History Packet](#history-packet)               |
-| `50`  | -            | [Update Packet](#update-packet)                 |
-| `54`  | 8 byte       | [Version Packet](#version-packet)               |
-
-> Command Type
+## Command Type
 
 | Value | Payload size | Note                                                                 |
 | ----- | ------------ | -------------------------------------------------------------------- |
-| `01`  | 0 byte       | [Shutdown Command](#shutdown-command)                                |
-| `08`  | 2 byte       | [Measurement interval Command](#measurement-interval-command)        |
-| `09`  | 4 byte       | [Set Time Command](#set-time-command)                                |
-| `0A`  | 0 byte       | [Next history Command](#next-history-command)                        |
-| `0B`  | 0 byte       | [Read history Command](#read-history-command)                        |
-| `12`  | 16 byte      | [Rename device name Command (UNTESTED)](#rename-device-name-command) |
-| `16`  | 1 byte       | [Measurement enabled Command](#measurement-enabled-command)          |
+| `01`  | 0 byte       | Shutdown Command                                                     |
+| `08`  | 2 byte       | [Measurement Interval Command](#measurement-interval-command)        |
+| `09`  | 4 byte       | [Set RTC Command](#set-rtc-command)                                  |
+| `0A`  | 0 byte       | Next history Command                                                 |
+| `0B`  | 0 byte       | Read history Command                                                 |
+| `12`  | 15 byte      | [Rename device name Command (UNTESTED)](#rename-device-name-command) |
+| `16`  | 1 byte       | [Measurement Enable Command](#measurement-enable-command)            |
 
-### Shutting down Packet
-
-| Offset | Field   | Block size | Note   |
-| -----: | ------- | ---------- | ------ |
-|   `03` | unknown | 1 byte     | `0xAB` |
-
-### No more history Packet
+## NoMoreHistory Packet
 
 | Offset | Field   | Block size | Note   |
 | -----: | ------- | ---------- | ------ |
 |   `03` | unknown | 1 byte     | `0x01` |
-|   `04` | unknown | 1 byte     | `0xB5` |
 
-### History Packet
+## History Packet
 
 | Offset | Field             | Block size | Note      |
 | -----: | ----------------- | ---------- | --------- |
 |   `02` | PM <sub>2.5</sub> | 2 byte     | 16 bit BE |
 |   `06` | Timestamp         | 4 byte     | 32 bit BE |
 
-### Update Packet
+## Update Packet
 
-| Offset | Field    | Block size | Note |
-| -----: | -------- | ---------- | ---- |
-|   `03` | Sub type | 1 byte     |      |
+| Offset | Field    | Block size |
+| -----: | -------- | ---------- |
+|   `02` | Sub type | 1 byte     |
 
 | Type        | Value | Payload Size | Note                                                  |
 | ----------- | ----- | ------------ | ----------------------------------------------------- |
@@ -91,21 +82,21 @@ Device broadcast name: `测霾单品`
 | Sensor      | `06`  | 14 byte      | [Sensor Data Packet](#sensor-data-packet)             |
 | Measurement | `07`  | 8 byte       | [Measurement Setup Packet](#measurement-setup-packet) |
 
-#### Battery Status Packet
+### Battery Status Packet
 
 | Offset | Field    | Block size | Note |
 | -----: | -------- | ---------- | ---- |
 |   `03` | Capacity | 1 byte     |      |
 |   `06` | Charging | 1 byte     |      |
 
-#### Hardware Runtime Packet
+### Hardware Runtime Packet
 
 | Offset | Field     | Block size | Note            |
 | -----: | --------- | ---------- | --------------- |
 |   `03` | Run time  | 4 byte     | 32 bit BE (sec) |
 |   `07` | Boot time | 4 byte     | 32 bit BE (sec) |
 
-#### Sensor Data Packet
+### Sensor Data Packet
 
 | Offset | Field             | Block size | Note                  |
 | -----: | ----------------- | ---------- | --------------------- |
@@ -113,61 +104,43 @@ Device broadcast name: `测霾单品`
 |   `07` | Record Date       | 4 byte     | 32 bit BE (timestamp) |
 |   `0C` | Current Date      | 4 byte     | 32 bit BE (timestamp) |
 
-#### Measurement Setup Packet
+### Measurement Setup Packet
 
 | Offset | Field    | Block size | Note                |
 | -----: | -------- | ---------- | ------------------- |
 |   `03` | Interval | 2 byte     | 16 bit BE (minutes) |
 |   `05` | Disabled | 1 byte     |                     |
 
-### Version Packet
+## Version Packet
 
 | Offset | Field | Block size | Note      |
 | -----: | ----- | ---------- | --------- |
-|  `0x2` | minor | 2 byte     | 16 bit BE |
-|  `0x4` | major | 2 byte     | 16 bit BE |
+|   `02` | minor | 2 byte     | 16 bit BE |
+|   `04` | major | 2 byte     | 16 bit BE |
 
-#### Shutdown Command
-
-| Offset | Field | Block size | Note |
-| -----: | ----- | ---------- | ---- |
-|   `02` | Type  | 1 byte     | `01` |
-
-#### Measurement interval Command
+## Measurement Interval Command
 
 | Offset | Field    | Block size | Note      |
 | -----: | -------- | ---------- | --------- |
 |   `02` | Type     | 1 byte     | `08`      |
 |   `03` | Interval | 2 byte     | 16 bit BE |
 
-#### Set Time Command
+## Set RTC Command
 
 | Offset | Field     | Block size | Note      |
 | -----: | --------- | ---------- | --------- |
 |   `02` | Type      | 1 byte     | `09`      |
 |   `03` | Timestamp | 4 byte     | 32 bit BE |
 
-#### Read history Command
+## Rename device name Command
 
-| Offset | Field | Block size | Note |
-| -----: | ----- | ---------- | ---- |
-|   `02` | Type  | 1 byte     | `0A` |
+| Offset | Field   | Block size | Note            |
+| -----: | ------- | ---------- | --------------- |
+|   `02` | Type    | 1 byte     | `12`            |
+|   `03` | unknown | 1 byte     | `01` / `00`     |
+|   `04` | name    | 14 byte    | UTF-8 encoding? |
 
-#### Next history Command
-
-| Offset | Field | Block size | Note |
-| -----: | ----- | ---------- | ---- |
-|   `02` | Type  | 1 byte     | `0B` |
-
-#### Rename device name Command
-
-| Offset | Field   | Block size  | Note            |
-| -----: | ------- | ----------- | --------------- |
-|   `02` | Type    | 1 byte      | `12`            |
-|   `03` | unknown | 1 byte      | `01` / `00`     |
-|   `04` | name    | max 15 byte | UTF-8 encoding? |
-
-#### Measurement enabled Command
+## Measurement Enable Command
 
 | Offset | Field   | Block size | Note                    |
 | -----: | ------- | ---------- | ----------------------- |
