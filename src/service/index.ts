@@ -31,7 +31,6 @@ export class SensorService {
   private events = new EventEmitter();
   private device: BluetoothDevice;
   private server: BluetoothRemoteGATTServer | undefined;
-  private characteristic: BluetoothRemoteGATTCharacteristic | undefined;
 
   private constructor(device: BluetoothDevice) {
     this.device = device;
@@ -53,12 +52,10 @@ export class SensorService {
 
   public async disconnect() {
     try {
-      await this.characteristic?.stopNotifications();
       this.device.gatt?.disconnect();
     } catch {
       // ignore
     }
-    this.events.emit(EventType.disconnected);
     this.events.removeAllListeners();
   }
 
