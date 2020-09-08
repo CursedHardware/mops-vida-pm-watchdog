@@ -96,7 +96,7 @@ export class MeasurementSetupPacket {
   public constructor(data: Buffer) {
     assert(data, 0x50);
     this.interval = data.readUInt16BE(0x3);
-    this.enabled = data.readUInt8(0x5) !== 0;
+    this.enabled = data.readUInt8(0x5) === 1;
     Object.freeze(this);
     Object.seal(this);
   }

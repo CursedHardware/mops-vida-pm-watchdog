@@ -84,10 +84,10 @@ Device broadcast name: `测霾单品`
 
 ### Battery Status Packet
 
-| Offset | Field    | Block size | Note |
-| -----: | -------- | ---------- | ---- |
-|   `03` | Capacity | 1 byte     |      |
-|   `06` | Charging | 1 byte     |      |
+| Offset | Field    | Block size | Note                        |
+| -----: | -------- | ---------- | --------------------------- |
+|   `03` | Capacity | 1 byte     | 0 - 100                     |
+|   `06` | Charging | 1 byte     | 1: Charging, 0: Discharging |
 
 ### Hardware Runtime Packet
 
@@ -106,10 +106,10 @@ Device broadcast name: `测霾单品`
 
 ### Measurement Setup Packet
 
-| Offset | Field    | Block size | Note                |
-| -----: | -------- | ---------- | ------------------- |
-|   `03` | Interval | 2 byte     | 16 bit BE (minutes) |
-|   `05` | Disabled | 1 byte     |                     |
+| Offset | Field    | Block size | Note                    |
+| -----: | -------- | ---------- | ----------------------- |
+|   `03` | Interval | 2 byte     | 16 bit BE (minutes)     |
+|   `05` | Enabled  | 1 byte     | 1: enabled, 0: disabled |
 
 ## Version Packet
 
