@@ -24,4 +24,4 @@
 
 ## SWD
 
-<img src="PINOUT-SWD.jpg" width="300" />
+<img src="dumps/PINOUT-SWD.jpg" width="300" />

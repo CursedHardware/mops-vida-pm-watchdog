@@ -11,10 +11,6 @@ Device broadcast name: `测霾单品`
 | RX Characteristic        | `6E400002-B5A3-F393-E0A9-E50E24DCCA9E` |
 | TX Characteristic        | `6E400003-B5A3-F393-E0A9-E50E24DCCA9E` |
 
-## PINOUT
-
-- [PINOUT Definition](./PINOUT.md)
-
 ## Packet layout
 
 > Receive Message
@@ -146,7 +142,3 @@ Device broadcast name: `测霾单品`
 | -----: | ------- | ---------- | ----------------------- |
 |   `02` | Type    | 1 byte     | `16`                    |
 |   `03` | Enabled | 1 byte     | 1: enabled, 0: disabled |
-
-## Thanks
-
-- <https://blog.megumifox.com/public/2020/09/04/忻風隨身-pm2.5-檢測儀開箱和拆解/>
