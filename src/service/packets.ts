@@ -4,6 +4,24 @@ export class ShutdownPacket {
   }
 }
 
+export class MeasurementIntervalPacket {
+  public readonly interval: number;
+
+  public constructor(data: Buffer) {
+    assert(data, 0x08);
+    this.interval = data.readUInt32BE(0x2);
+  }
+}
+
+export class SetRTCPacket {
+  public readonly date: Date;
+
+  public constructor(data: Buffer) {
+    assert(data, 0x09);
+    this.date = new Date(data.readUInt32BE(0x2) * 1000);
+  }
+}
+
 export class NoMoreHistoryPacket {
   public constructor(data: Buffer) {
     assert(data, 0x0a);
@@ -21,6 +39,15 @@ export class HistoryPacket {
   }
 }
 
+export class MeasurementEnabledPacket {
+  public readonly enabled: boolean;
+
+  public constructor(data: Buffer) {
+    assert(data, 0x16);
+    this.enabled = Boolean(data.readUInt8(0x2));
+  }
+}
+
 export class BatteryPacket {
   public readonly capacity: number;
   public readonly isCharging: boolean;
@@ -28,7 +55,7 @@ export class BatteryPacket {
   public constructor(data: Buffer) {
     assert(data, 0x50);
     this.capacity = data.readUInt8(0x3);
-    this.isCharging = data.readUInt8(0x6) === 1;
+    this.isCharging = Boolean(data.readUInt8(0x6));
     Object.freeze(this);
     Object.seal(this);
   }
@@ -69,7 +96,7 @@ export class MeasurementSetupPacket {
   public constructor(data: Buffer) {
     assert(data, 0x50);
     this.interval = data.readUInt16BE(0x3);
-    this.enabled = data.readUInt8(0x5) === 1;
+    this.enabled = Boolean(data.readUInt8(0x5));
     Object.freeze(this);
     Object.seal(this);
   }
@@ -102,8 +129,11 @@ function assert(data: Buffer, type: number) {
 
 const mapping = {
   aa01: ShutdownPacket,
+  aa08: MeasurementIntervalPacket,
+  aa09: SetRTCPacket,
   aa0a: NoMoreHistoryPacket,
   aa0b: HistoryPacket,
+  aa16: MeasurementEnabledPacket,
   aa5004: BatteryPacket,
   aa5005: RuntimePacket,
   aa5006: SensorPacket,

@@ -32,23 +32,23 @@ Device broadcast name: `测霾单品`
 
 ## Message Type
 
-| Value | Payload size | Note                                                      |
-| ----- | ------------ | --------------------------------------------------------- |
-| `01`  | 0 byte       | Shutting down Packet                                      |
-| `08`  | 4 byte       | [MeasurementIntervalPacket](#measurement-interval-packet) |
-| `09`  | 4 byte       | [Set RTC Packet](#set-rtc-packet)                         |
-| `0A`  | 1 byte       | [NoMoreHistory Packet](#nomorehistory-packet)             |
-| `0B`  | 9 byte       | [History Packet](#history-packet)                         |
-| `16`  | 1 byte       | [MeasurementEnabledPacket](#measurement-enabled-packet)   |
-| `50`  | -            | [Update Packet](#update-packet)                           |
-| `54`  | 8 byte       | [Version Packet](#version-packet)                         |
+| Value | Payload size | Note                                                        |
+| ----- | ------------ | ----------------------------------------------------------- |
+| `01`  | 0 byte       | Shutting down Packet                                        |
+| `08`  | 4 byte       | [Measurement Interval Packet](#measurement-interval-packet) |
+| `09`  | 4 byte       | [Set RTC Packet](#set-rtc-packet)                           |
+| `0A`  | 1 byte       | [NoMoreHistory Packet](#nomorehistory-packet)               |
+| `0B`  | 9 byte       | [History Packet](#history-packet)                           |
+| `16`  | 1 byte       | [Measurement Enabled Packet](#measurement-enabled-packet)   |
+| `50`  | -            | [Update Packet](#update-packet)                             |
+| `54`  | 8 byte       | [Version Packet](#version-packet)                           |
 
 ## Command Type
 
 | Value | Payload size | Note                                                                 |
 | ----- | ------------ | -------------------------------------------------------------------- |
 | `01`  | 0 byte       | Shutdown Command                                                     |
-| `08`  | 2 byte       | [Measurement Interval Command](#measurement-interval-command)        |
+| `08`  | 4 byte       | [Measurement Interval Command](#measurement-interval-command)        |
 | `09`  | 4 byte       | [Set RTC Command](#set-rtc-command)                                  |
 | `0A`  | 0 byte       | Next history Command                                                 |
 | `0B`  | 0 byte       | Read history Command                                                 |
