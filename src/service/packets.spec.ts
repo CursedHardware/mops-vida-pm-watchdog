@@ -18,6 +18,7 @@ describe('Packets', () => {
     AA5006001E00005F52358C025F52358D05: { pm25: 30, recordDate: new Date('2020-09-04T12:39:40.000Z'), currentDate: new Date('2020-09-04T12:39:41.000Z') },
     AA500700050006: { interval: 5, enabled: false },
     AA5400100001000110: { major: 1, minor: 16 },
+    AA54000C000100010C: { major: 1, minor: 12 },
   };
 
   for (const [packet, expected] of Object.entries(cases)) {
