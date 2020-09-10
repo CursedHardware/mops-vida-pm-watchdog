@@ -138,7 +138,7 @@ const mapping = {
   aa5005: RuntimePacket,
   aa5006: SensorPacket,
   aa5007: MeasurementSetupPacket,
-  aa5400: VersionPacket,
+  aa54: VersionPacket,
 };
 
 export type PacketType = InstanceType<typeof mapping[keyof typeof mapping]>;
