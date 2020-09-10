@@ -1,3 +1,5 @@
+import _ from 'lodash-es';
+
 export class ShutdownPacket {
   public constructor(data: Buffer) {
     assert(data, 0x01);
@@ -124,12 +126,9 @@ function assert(data: Buffer, type: number) {
     throw new Error('unexpected header');
   } else if (data[1] !== type) {
     throw new Error('unexpected type');
+  } else if (data[data.length - 1] !== (_.sum(data.slice(0, -1)) & 255)) {
+    throw new Error('unexpected checksum');
   }
-  assertChecksum(data);
-}
-
-function assertChecksum(data: Buffer) {
-  return data[data.length - 1] === (data.slice(0, -1).reduce((prev, next) => prev + next, 0) & 255);
 }
 
 const mapping = {
