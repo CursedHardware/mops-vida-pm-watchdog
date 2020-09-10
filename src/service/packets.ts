@@ -125,6 +125,11 @@ function assert(data: Buffer, type: number) {
   } else if (data[1] !== type) {
     throw new Error('unexpected type');
   }
+  assertChecksum(data);
+}
+
+function assertChecksum(data: Buffer) {
+  return data[data.length - 1] === (data.slice(0, -1).reduce((prev, next) => prev + next, 0) & 255);
 }
 
 const mapping = {

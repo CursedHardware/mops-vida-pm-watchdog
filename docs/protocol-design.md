@@ -15,11 +15,12 @@ Device broadcast name: `测霾单品`
 
 > Receive Message
 
-| Offset | Field        | Block size | Note                          |
-| -----: | ------------ | ---------- | ----------------------------- |
-|   `00` | Magic Header | 1 byte     | `AA`                          |
-|   `01` | Message Type | 1 byte     | [Message Type](#message-type) |
-|   `02` | Payload      |            |                               |
+|    Offset | Field        | Block size | Note                          |
+| --------: | ------------ | ---------- | ----------------------------- |
+|      `00` | Magic Header | 1 byte     | `AA`                          |
+|      `01` | Message Type | 1 byte     | [Message Type](#message-type) |
+|      `02` | Payload      |            |                               |
+| Last byte | Checksum     |            | `(sum all) & 255`             |
 
 > Send Command
 
