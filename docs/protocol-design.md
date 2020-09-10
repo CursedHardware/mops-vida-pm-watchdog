@@ -32,13 +32,16 @@ Device broadcast name: `测霾单品`
 
 ## Message Type
 
-| Value | Payload size | Note                                          |
-| ----- | ------------ | --------------------------------------------- |
-| `01`  | 0 byte       | Shutting down Packet                          |
-| `0A`  | 1 byte       | [NoMoreHistory Packet](#nomorehistory-packet) |
-| `0B`  | 9 byte       | [History Packet](#history-packet)             |
-| `50`  | -            | [Update Packet](#update-packet)               |
-| `54`  | 8 byte       | [Version Packet](#version-packet)             |
+| Value | Payload size | Note                                                      |
+| ----- | ------------ | --------------------------------------------------------- |
+| `01`  | 0 byte       | Shutting down Packet                                      |
+| `08`  | 4 byte       | [MeasurementIntervalPacket](#measurement-interval-packet) |
+| `09`  | 4 byte       | [Set RTC Packet](#set-rtc-packet)                         |
+| `0A`  | 1 byte       | [NoMoreHistory Packet](#nomorehistory-packet)             |
+| `0B`  | 9 byte       | [History Packet](#history-packet)                         |
+| `16`  | 1 byte       | [MeasurementEnabledPacket](#measurement-enabled-packet)   |
+| `50`  | -            | [Update Packet](#update-packet)                           |
+| `54`  | 8 byte       | [Version Packet](#version-packet)                         |
 
 ## Command Type
 
@@ -52,6 +55,18 @@ Device broadcast name: `测霾单品`
 | `12`  | 15 byte      | [Rename device name Command (UNTESTED)](#rename-device-name-command) |
 | `16`  | 1 byte       | [Measurement Enable Command](#measurement-enable-command)            |
 
+### Measurement Interval Packet
+
+| Offset | Field    | Block size | Note      |
+| -----: | -------- | ---------- | --------- |
+|   `02` | Interval | 4 byte     | 32 bit BE |
+
+### Set RTC Packet
+
+| Offset | Field     | Block size | Note      |
+| -----: | --------- | ---------- | --------- |
+|   `02` | Timestamp | 4 byte     | 32 bit BE |
+
 ## NoMoreHistory Packet
 
 | Offset | Field   | Block size | Note   |
@@ -64,6 +79,12 @@ Device broadcast name: `测霾单品`
 | -----: | ----------------- | ---------- | --------- |
 |   `02` | PM <sub>2.5</sub> | 2 byte     | 16 bit BE |
 |   `06` | Timestamp         | 4 byte     | 32 bit BE |
+
+## Measurement Enabled Packet
+
+| Offset | Field   | Block size | Note                    |
+| -----: | ------- | ---------- | ----------------------- |
+|   `02` | Enabled | 1 byte     | 1: Enabled, 0: Disabled |
 
 ## Update Packet
 
@@ -80,10 +101,10 @@ Device broadcast name: `测霾单品`
 
 ### Battery Status Packet
 
-| Offset | Field    | Block size | Note                        |
-| -----: | -------- | ---------- | --------------------------- |
-|   `03` | Capacity | 1 byte     | 0 - 100                     |
-|   `06` | Charging | 1 byte     | 1: Charging, 0: Discharging |
+| Offset | Field    | Block size | Note                      |
+| -----: | -------- | ---------- | ------------------------- |
+|   `03` | Capacity | 1 byte     | 0 - 100                   |
+|   `06` | Charging | 1 byte     | 1: Charging, 0: Discharge |
 
 ### Hardware Runtime Packet
 
@@ -97,22 +118,23 @@ Device broadcast name: `测霾单品`
 | Offset | Field             | Block size | Note                  |
 | -----: | ----------------- | ---------- | --------------------- |
 |   `03` | PM <sub>2.5</sub> | 2 byte     | 16 bit BE             |
-|   `07` | Record Date       | 4 byte     | 32 bit BE (timestamp) |
-|   `0C` | Current Date      | 4 byte     | 32 bit BE (timestamp) |
+|   `07` | Record Date       | 4 byte     | 32 bit BE (Timestamp) |
+|   `0B` | Unknown           | 1 byte     |                       |
+|   `0C` | Current Date      | 4 byte     | 32 bit BE (Timestamp) |
 
 ### Measurement Setup Packet
 
 | Offset | Field    | Block size | Note                    |
 | -----: | -------- | ---------- | ----------------------- |
 |   `03` | Interval | 2 byte     | 16 bit BE (minutes)     |
-|   `05` | Enabled  | 1 byte     | 1: enabled, 0: disabled |
+|   `05` | Enabled  | 1 byte     | 1: Enabled, 0: Disabled |
 
 ## Version Packet
 
 | Offset | Field | Block size | Note      |
 | -----: | ----- | ---------- | --------- |
-|   `02` | minor | 2 byte     | 16 bit BE |
-|   `04` | major | 2 byte     | 16 bit BE |
+|   `02` | Minor | 2 byte     | 16 bit BE |
+|   `04` | Major | 2 byte     | 16 bit BE |
 
 ## Measurement Interval Command
 
@@ -133,12 +155,12 @@ Device broadcast name: `测霾单品`
 | Offset | Field   | Block size | Note            |
 | -----: | ------- | ---------- | --------------- |
 |   `02` | Type    | 1 byte     | `12`            |
-|   `03` | unknown | 1 byte     | `01` / `00`     |
-|   `04` | name    | 14 byte    | UTF-8 encoding? |
+|   `03` | Unknown | 1 byte     | `01` / `00`     |
+|   `04` | Name    | 14 byte    | UTF-8 encoding? |
 
 ## Measurement Enable Command
 
 | Offset | Field   | Block size | Note                    |
 | -----: | ------- | ---------- | ----------------------- |
 |   `02` | Type    | 1 byte     | `16`                    |
-|   `03` | Enabled | 1 byte     | 1: enabled, 0: disabled |
+|   `03` | Enabled | 1 byte     | 1: Enabled, 0: Disabled |

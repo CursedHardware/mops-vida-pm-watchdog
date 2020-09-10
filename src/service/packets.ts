@@ -2,19 +2,11 @@ export class ShutdownPacket {
   public constructor(data: Buffer) {
     assert(data, 0x01);
   }
-
-  public toString() {
-    return 'Shutdown';
-  }
 }
 
 export class NoMoreHistoryPacket {
   public constructor(data: Buffer) {
     assert(data, 0x0a);
-  }
-
-  public toString() {
-    return 'No More History';
   }
 }
 
@@ -26,10 +18,6 @@ export class HistoryPacket {
     assert(data, 0x0b);
     this.pm25 = data.readUInt16BE(0x2);
     this.recordDate = new Date(data.readUInt32BE(0x6) * 1000);
-  }
-
-  public toString() {
-    return `PM 2.5: ${this.pm25}`;
   }
 }
 
@@ -44,13 +32,6 @@ export class BatteryPacket {
     Object.freeze(this);
     Object.seal(this);
   }
-
-  public toString() {
-    if (this.isCharging) {
-      return 'Charging';
-    }
-    return `Battery: ${this.capacity}%`;
-  }
 }
 
 export class RuntimePacket {
@@ -63,10 +44,6 @@ export class RuntimePacket {
     this.boottime = data.readUInt32BE(0x7);
     Object.freeze(this);
     Object.seal(this);
-  }
-
-  public toString() {
-    return `Run time: ${this.runtime} sec, Boot time: ${this.boottime} sec`;
   }
 }
 
@@ -83,10 +60,6 @@ export class SensorPacket {
     Object.freeze(this);
     Object.seal(this);
   }
-
-  public toString() {
-    return `PM 2.5: ${this.pm25}`;
-  }
 }
 
 export class MeasurementSetupPacket {
@@ -99,13 +72,6 @@ export class MeasurementSetupPacket {
     this.enabled = data.readUInt8(0x5) === 1;
     Object.freeze(this);
     Object.seal(this);
-  }
-
-  public toString() {
-    if (!this.enabled) {
-      return 'Interval measurement disabled';
-    }
-    return `Internal: ${this.interval} minutes`;
   }
 }
 
