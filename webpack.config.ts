@@ -51,10 +51,11 @@ const configuration: Configuration = {
   plugins: [
     new HTMLPlugin({
       title: 'MOPS·VIDA PM Watchdog',
+      favicon: require.resolve('./assets/air-pollution-icon.png'),
     }),
     new CSSPlugin({ filename: '[name].css' }),
     new HTMLPartialPlugin({
-      path: require.resolve('./scripts/partials/analytics.html'),
+      path: require.resolve('./assets/partials/analytics.html'),
       location: 'head',
       options: { id: 'UA-168944052-3' },
     }),
