@@ -39,10 +39,10 @@ Device broadcast name: `测霾单品`
 | `08`  | 4 byte       | [Measurement Interval Packet](#measurement-interval-packet) |
 | `09`  | 4 byte       | [Set RTC Packet](#set-rtc-packet)                           |
 | `0A`  | 1 byte       | [NoMoreHistory Packet](#nomorehistory-packet)               |
-| `0B`  | 9 byte       | [History Packet](#history-packet)                           |
+| `0B`  | 8 byte       | [History Packet](#history-packet)                           |
 | `16`  | 1 byte       | [Measurement Enabled Packet](#measurement-enabled-packet)   |
 | `50`  | -            | [Update Packet](#update-packet)                             |
-| `54`  | 8 byte       | [Version Packet](#version-packet)                           |
+| `54`  | 6 byte       | [Version Packet](#version-packet)                           |
 
 ## Command Type
 
@@ -53,7 +53,7 @@ Device broadcast name: `测霾单品`
 | `09`  | 4 byte       | [Set RTC Command](#set-rtc-command)                                  |
 | `0A`  | 0 byte       | Next history Command                                                 |
 | `0B`  | 0 byte       | Read history Command                                                 |
-| `12`  | 15 byte      | [Rename device name Command (UNTESTED)](#rename-device-name-command) |
+| `12`  | 16 byte      | [Rename device name Command (UNTESTED)](#rename-device-name-command) |
 | `16`  | 1 byte       | [Measurement Enable Command](#measurement-enable-command)            |
 
 ### Measurement Interval Packet
@@ -95,10 +95,10 @@ Device broadcast name: `测霾单品`
 
 | Type        | Value | Payload Size | Note                                                  |
 | ----------- | ----- | ------------ | ----------------------------------------------------- |
-| Battery     | `04`  | 17 byte      | [Battery Status Packet](#battery-status-packet)       |
-| Runtime     | `05`  | 15 byte      | [Hardware Runtime Packet](#hardware-runtime-packet)   |
-| Sensor      | `06`  | 14 byte      | [Sensor Data Packet](#sensor-data-packet)             |
-| Measurement | `07`  | 8 byte       | [Measurement Setup Packet](#measurement-setup-packet) |
+| Battery     | `04`  | 16 byte      | [Battery Status Packet](#battery-status-packet)       |
+| Runtime     | `05`  | 14 byte      | [Hardware Runtime Packet](#hardware-runtime-packet)   |
+| Sensor      | `06`  | 13 byte      | [Sensor Data Packet](#sensor-data-packet)             |
+| Measurement | `07`  | 3 byte       | [Measurement Setup Packet](#measurement-setup-packet) |
 
 ### Battery Status Packet
 
