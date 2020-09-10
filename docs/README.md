@@ -1,6 +1,12 @@
 # Documentation
 
-> The copyright of the [Reports](#reports), [Firmware](#firmware), and [App](#decompile-app-guide) belongs to **Hangzhou Contact Interactive Information Technology Co., Ltd. (杭州联络互动信息科技股份有限公司)**
+> The copyright of the [Reports](#reports), [Firmware](#firmware), and [App](#decompile-app-guide) belongs to
+>
+> **Hangzhou Contact Interactive Information Technology Co., Ltd.** AND
+>
+> **Hangzhou Lianluo Interactive Information Technology Co., Ltd.** AND
+>
+> **杭州联络互动信息科技股份有限公司**
 
 ## Hardware
 
