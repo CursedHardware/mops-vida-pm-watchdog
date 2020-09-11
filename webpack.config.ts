@@ -57,7 +57,7 @@ const configuration: Configuration = {
     new HTMLPartialPlugin({
       path: require.resolve('./assets/partials/analytics.html'),
       location: 'head',
-      options: { id: 'UA-168944052-3' },
+      options: { id: 'UA-168944052-1' },
     }),
   ],
 };
