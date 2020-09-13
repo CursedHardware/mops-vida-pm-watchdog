@@ -30,7 +30,7 @@ export class SensorService {
 
   private events = new EventEmitter();
   private device: BluetoothDevice;
-  private server: BluetoothRemoteGATTServer | undefined;
+  private server?: BluetoothRemoteGATTServer;
 
   private constructor(device: BluetoothDevice) {
     this.device = device;
